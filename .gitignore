@@ -1,0 +1,5 @@
+﻿DataBases\.idea
+.env
+*.env
+pycache/
+*.pyc
