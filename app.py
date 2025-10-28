@@ -116,8 +116,21 @@ def show_tables():
 def health():
     return jsonify({"status": "ok"}), 200
 
+@app.route("/cpu_load", methods=["GET"])
+def cpu_load():
+    """
+    Цей ендпоінт імітує "важку" роботу,
+    спалюючи CPU протягом 0.5 секунди.
+    """
+    end_time = time.time() + 0.5
+    while time.time() < end_time:
+        _ = 1 + 1 # Просто робимо безглузду роботу
+
+    return jsonify({"status": "done"}), 200
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=False)
+
 
 
 
