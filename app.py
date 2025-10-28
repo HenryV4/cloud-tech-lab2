@@ -36,8 +36,15 @@ app.config['DEBUG'] = False
 CORS(app)
 init_swagger(app, title="Hotel API (Lab5)", version="1.0.0", protect_docs=False)
 
-app.config['MYSQL_HOST'] = env('DB_HOST', '127.0.0.1')
-app.config['MYSQL_PORT'] = int(env('DB_PORT', '3306'))
+# Перевіряємо, чи ми в Cloud Run (чи є змінна UNIX_SOCKET)
+unix_socket = env('MYSQL_UNIX_SOCKET')
+if unix_socket:
+  # Якщо так, використовуємо безпечний тунель
+  app.config['MYSQL_UNIX_SOCKET'] = unix_socket
+else:
+  # Інакше (для локальної розробки) використовуємо стандартний IP/Host
+  app.config['MYSQL_HOST'] = env('DB_HOST', '127.0.0.1')
+  app.config['MYSQL_PORT'] = int(env('DB_PORT', '3306'))
 app.config['MYSQL_USER'] = env('DB_USER', required=True)
 app.config['MYSQL_PASSWORD'] = env('DB_PASS', required=True)
 app.config['MYSQL_DB'] = env('DB_NAME', required=True)
@@ -105,4 +112,5 @@ def health():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=False)
+
 
