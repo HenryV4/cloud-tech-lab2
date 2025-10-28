@@ -26,4 +26,4 @@ ENV FLASK_APP=app.py
 EXPOSE 8000
 
 # Команда для запуску
-CMD ["gunicorn", "--chdir", "/app", "--bind", "0.0.0.0:8000", "app:app"]
+CMD ["gunicorn", "--chdir", "/app", "--bind", "0.0.0.0:8000", "--workers", "1", "--threads", "80", "app:app"]
