@@ -49,11 +49,17 @@ app.config['MYSQL_USER'] = env('DB_USER', required=True)
 app.config['MYSQL_PASSWORD'] = env('DB_PASS', required=True)
 app.config['MYSQL_DB'] = env('DB_NAME', required=True)
 
-print("== DB settings ==",
-      "HOST=", app.config['MYSQL_HOST'],
-      "USER=", app.config['MYSQL_USER'],
-      "PORT=", app.config['MYSQL_PORT'],
-)
+if 'MYSQL_UNIX_SOCKET' in app.config:
+    print("== DB settings (using UNIX Socket) ==",
+          "SOCKET=", app.config['MYSQL_UNIX_SOCKET'],
+          "USER=", app.config['MYSQL_USER'],
+          )
+else:
+    print("== DB settings (using HOST/PORT) ==",
+          "HOST=", app.config['MYSQL_HOST'],
+          "USER=", app.config['MYSQL_USER'],
+          "PORT=", app.config['MYSQL_PORT'],
+          )
 
 mysql = MySQL(app)
 app.mysql = mysql
@@ -112,5 +118,6 @@ def health():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=False)
+
 
 
