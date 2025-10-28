@@ -6,3 +6,4 @@ python-dotenv==1.0.1
 mysql-connector-python==9.0.0
 cloud-sql-python-connector
 pymysql
+flask_mysqldb
