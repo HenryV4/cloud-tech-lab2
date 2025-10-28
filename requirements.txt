@@ -2,7 +2,7 @@ Flask
 python-dotenv
 flask-mysqldb
 Flask-Cors
-flasgger
 gunicorn
 cloud-sql-python-connector
 pymysql
+flask-swagger-ui
