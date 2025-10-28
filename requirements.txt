@@ -1,5 +1,8 @@
 Flask
 python-dotenv
 flask-mysqldb
-swagger-portal
 Flask-Cors
+flasgger
+gunicorn
+cloud-sql-python-connector
+pymysql
