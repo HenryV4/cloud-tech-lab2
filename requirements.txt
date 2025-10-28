@@ -1,9 +1,5 @@
-Flask==3.0.3
-gunicorn==23.0.0
-flask-cors==4.0.1
-flasgger==0.9.7.1
-python-dotenv==1.0.1
-mysql-connector-python==9.0.0
-cloud-sql-python-connector
-pymysql
-flask_mysqldb
+Flask
+python-dotenv
+flask-mysqldb
+swagger-portal
+Flask-Cors
