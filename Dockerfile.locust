@@ -5,20 +5,18 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Встановлюємо locust
-# --no-cache-dir робить образ трохи меншим
 RUN pip install --no-cache-dir locust
 
 # Копіюємо ТІЛЬКИ файл сценарію
 COPY locustfile.py .
 
-# 1. Встановлюємо $PORT за замовчуванням
-#    - Cloud Run автоматично "перезапише" це значення.
-#    - Docker (локально) буде використовувати 8080, якщо ми не вкажемо інше.
-ENV PORT 8080
+# 1. Виправлено: "ENV key=value"
+ENV PORT=8080
 
 # 2. Відкриваємо цей порт
 EXPOSE 8080
 
-# 3. Запускаємо Locust через 'sh -c', щоб він правильно "підхопив"
-#    змінну $PORT (або 8080, або ту, що дасть Cloud Run).
+# 3. Ми МУСИМО ігнорувати JSON-попередження.
+#    Формат 'sh -c' - це єдиний спосіб, 
+#    щоб Cloud Run міг передати змінну $PORT.
 CMD sh -c 'locust -f locustfile.py --web-port $PORT --web-host 0.0.0.0'
