@@ -7,10 +7,11 @@ RUN pip install locust
 # Копіюємо ТІЛЬКИ файл сценарію
 COPY locustfile.py .
 
-# Google Cloud Run передає нам порт через змінну $PORT
-# За замовчуванням це 8080
+# 1. Встановлюємо змінну $PORT за замовчуванням
+ENV PORT 8080
+
+# 2. Відкриваємо цей порт
 EXPOSE 8080
 
-# Команда для запуску Locust з веб-інтерфейсом
-# Він буде слухати на порту, який йому дасть Cloud Run ($PORT)
+# 3. Тепер CMD завжди бачитиме $PORT (або 8080, або те, що дасть Cloud Run)
 CMD sh -c 'locust -f locustfile.py --web-port $PORT --web-host 0.0.0.0'
