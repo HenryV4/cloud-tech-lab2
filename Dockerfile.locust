@@ -13,4 +13,4 @@ EXPOSE 8080
 
 # Команда для запуску Locust з веб-інтерфейсом
 # Він буде слухати на порту, який йому дасть Cloud Run ($PORT)
-CMD ["locust", "-f", "locustfile.py", "--web-port", "$PORT", "--web-host", "0.0.0.0"]
+CMD sh -c 'locust -f locustfile.py --web-port $PORT --web-host 0.0.0.0'
